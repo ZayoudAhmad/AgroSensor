@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SensorData{% endblock %}
+
+{% block body %}
+    <h1>SensorData</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sensor_datum.id }}</td>
+            </tr>
+            <tr>
+                <th>Nitrogen</th>
+                <td>{{ sensor_datum.nitrogen }}</td>
+            </tr>
+            <tr>
+                <th>Phosphorus</th>
+                <td>{{ sensor_datum.phosphorus }}</td>
+            </tr>
+            <tr>
+                <th>Potassium</th>
+                <td>{{ sensor_datum.potassium }}</td>
+            </tr>
+            <tr>
+                <th>Temperature</th>
+                <td>{{ sensor_datum.temperature }}</td>
+            </tr>
+            <tr>
+                <th>Ph</th>
+                <td>{{ sensor_datum.ph }}</td>
+            </tr>
+            <tr>
+                <th>Timestamp</th>
+                <td>{{ sensor_datum.timestamp ? sensor_datum.timestamp|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sensor_data_index') }}">back to list</a>
+
+    <a href="{{ path('app_sensor_data_edit', {'id': sensor_datum.id}) }}">edit</a>
+
+    {{ include('sensor_data/_delete_form.html.twig') }}
+{% endblock %}

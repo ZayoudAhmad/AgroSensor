@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SensorData index{% endblock %}
+
+{% block body %}
+    <h1>SensorData index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nitrogen</th>
+                <th>Phosphorus</th>
+                <th>Potassium</th>
+                <th>Temperature</th>
+                <th>Ph</th>
+                <th>Timestamp</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sensor_datum in sensor_datas %}
+            <tr>
+                <td>{{ sensor_datum.id }}</td>
+                <td>{{ sensor_datum.nitrogen }}</td>
+                <td>{{ sensor_datum.phosphorus }}</td>
+                <td>{{ sensor_datum.potassium }}</td>
+                <td>{{ sensor_datum.temperature }}</td>
+                <td>{{ sensor_datum.ph }}</td>
+                <td>{{ sensor_datum.timestamp ? sensor_datum.timestamp|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_sensor_data_show', {'id': sensor_datum.id}) }}">show</a>
+                    <a href="{{ path('app_sensor_data_edit', {'id': sensor_datum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sensor_data_new') }}">Create new</a>
+{% endblock %}
