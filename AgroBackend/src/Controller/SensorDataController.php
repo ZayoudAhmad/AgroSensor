@@ -35,9 +35,23 @@ class SensorDataController extends AbstractController
     #[Route('/new', name: 'app_sensor_data_new', methods: ['POST'])]
     #[OA\Post(
         summary: 'Create new sensor data',
+        description: 'Adds a new sensor data entry to the system.',
         requestBody: new OA\RequestBody(
             description: 'Sensor data payload',
-            required: true
+            required: true,
+            content: new OA\JsonContent(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'nitrogen', type: 'number', example: 12.5, description: 'Nitrogen content in the soil'),
+                    new OA\Property(property: 'phosphorus', type: 'number', example: 8.3, description: 'Phosphorus content in the soil'),
+                    new OA\Property(property: 'potassium', type: 'number', example: 9.1, description: 'Potassium content in the soil'),
+                    new OA\Property(property: 'temperature', type: 'number', example: 22.4, description: 'Temperature in degrees Celsius'),
+                    new OA\Property(property: 'ph', type: 'number', example: 6.7, description: 'pH level of the soil'),
+                    new OA\Property(property: 'humidity', type: 'number', example: 75.3, description: 'Humidity percentage'),
+                    new OA\Property(property: 'rainfall', type: 'number', example: 100.0, description: 'Rainfall in millimeters'),
+                    new OA\Property(property: 'timestamp', type: 'string', format: 'date-time', example: '2024-11-15T10:30:00Z', description: 'Timestamp of the data collection')
+                ]
+            )
         ),
         responses: [
             new OA\Response(response: 201, description: 'Sensor data created successfully'),
@@ -48,18 +62,40 @@ class SensorDataController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!$data || empty($data['sensor_id']) || !isset($data['nitrogen']) || !isset($data['phosphorus']) || !isset($data['potassium']) || !isset($data['temperature']) || !isset($data['ph'])) {
+        // Validate input
+        if (
+            !$data || 
+            !isset($data['nitrogen']) || 
+            !isset($data['phosphorus']) || 
+            !isset($data['potassium']) || 
+            !isset($data['temperature']) || 
+            !isset($data['ph']) || 
+            !isset($data['humidity']) || 
+            !isset($data['rainfall']) || 
+            !isset($data['timestamp'])
+        ) {
             return $this->json(['error' => 'Invalid input'], 400);
         }
 
+        try {
+            // Parse timestamp
+            $timestamp = new \DateTime($data['timestamp']);
+        } catch (\Exception $e) {
+            return $this->json(['error' => 'Invalid timestamp format'], 400);
+        }
+
+        // Create a new SensorData entity
         $sensorData = new SensorData();
         $sensorData->setNitrogen($data['nitrogen']);
         $sensorData->setPhosphorus($data['phosphorus']);
         $sensorData->setPotassium($data['potassium']);
         $sensorData->setTemperature($data['temperature']);
         $sensorData->setPh($data['ph']);
-        $sensorData->setTimestamp(new \DateTime());
+        $sensorData->setHumidity($data['humidity']);
+        $sensorData->setRainfall($data['rainfall']);
+        $sensorData->setTimestamp($timestamp);
 
+        // Persist data
         $entityManager->persist($sensorData);
         $entityManager->flush();
 

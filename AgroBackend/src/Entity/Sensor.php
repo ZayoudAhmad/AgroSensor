@@ -18,6 +18,10 @@ class Sensor
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    // Constants for sensor types
+    public const TYPE_SOIL = 'SOIL_SENSOR';
+    public const TYPE_PLANT = 'PLANT_SENSOR';
+
     #[ORM\Column]
     private ?float $latitude = null;
 

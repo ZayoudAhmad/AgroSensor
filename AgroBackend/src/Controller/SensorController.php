@@ -35,9 +35,18 @@ class SensorController extends AbstractController
     #[Route('/new', name: 'app_sensor_new', methods: ['POST'])]
     #[OA\Post(
         summary: 'Create a new sensor',
+        description: 'Adds a new sensor to the system.',
         requestBody: new OA\RequestBody(
             description: 'Sensor data',
-            required: true
+            required: true,
+            content: new OA\JsonContent(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'type', type: 'string', example: 'SOIL_SENSOR', description: 'Type of the sensor'),
+                    new OA\Property(property: 'latitude', type: 'number', format: 'float', example: 35.6895, description: 'Latitude of the sensor location'),
+                    new OA\Property(property: 'longitude', type: 'number', format: 'float', example: 139.6917, description: 'Longitude of the sensor location')
+                ]
+            )
         ),
         responses: [
             new OA\Response(response: 201, description: 'Sensor created successfully'),

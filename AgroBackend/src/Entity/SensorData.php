@@ -35,6 +35,12 @@ class SensorData
     #[ORM\ManyToOne(inversedBy: 'sensorData')]
     private ?Sensor $sensor = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $humidity = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $rainfall = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,30 @@ class SensorData
     public function setSensor(?Sensor $sensor): static
     {
         $this->sensor = $sensor;
+
+        return $this;
+    }
+
+    public function getHumidity(): ?float
+    {
+        return $this->humidity;
+    }
+
+    public function setHumidity(?float $humidity): static
+    {
+        $this->humidity = $humidity;
+
+        return $this;
+    }
+
+    public function getRainfall(): ?float
+    {
+        return $this->rainfall;
+    }
+
+    public function setRainfall(?float $rainfall): static
+    {
+        $this->rainfall = $rainfall;
 
         return $this;
     }

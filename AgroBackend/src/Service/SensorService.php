@@ -15,4 +15,14 @@ class SensorService
             'longitude' => $sensor->getLongitude()
         ];
     }
+
+    public function getSensorsByType(string $type): array
+    {
+        if (!in_array($type, [Sensor::TYPE_SOIL, Sensor::TYPE_PLANT])) {
+            throw new \InvalidArgumentException('Invalid sensor type');
+        }
+
+        return $this->sensorRepository->findBy(['type' => $type]);
+    }
+
 }
