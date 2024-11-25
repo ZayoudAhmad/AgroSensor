@@ -19,6 +19,14 @@ import type { FiltersProps } from '../product-filters';
 
 // ----------------------------------------------------------------------
 
+// Define the Product type
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+};
+
 const defaultFilters = {
   price: '',
   gender: [],
@@ -32,7 +40,7 @@ export function ProductsView() {
   const [openFilter, setOpenFilter] = useState(false);
   const [filters, setFilters] = useState<FiltersProps>(defaultFilters);
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]); // Specify Product[] type
   const [isLoading, setIsLoading] = useState(true);
 
   const handleOpenFilter = useCallback(() => {
