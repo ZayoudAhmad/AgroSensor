@@ -49,7 +49,7 @@ export const _posts = [...Array(23)].map((_, index) => ({
   id: _id(index),
   title: _postTitles(index),
   description: _description(index),
-  coverUrl: `/assets/images/cover/cover-${index + 1}.webp`,
+  coverUrl: `/assets/images/cover/46fdc42ff6c3386cd75090e7d09cf29f.jpg`,
   totalViews: 8829,
   totalComments: 7977,
   totalShares: 8556,
@@ -57,7 +57,7 @@ export const _posts = [...Array(23)].map((_, index) => ({
   postedAt: _times(index),
   author: {
     name: _fullName(index),
-    avatarUrl: `/assets/images/avatar/avatar-${index + 1}.webp`,
+    avatarUrl: `/assets/images/cover/46fdc42ff6c3386cd75090e7d09cf29f.jpg`,
   },
 }));
 
