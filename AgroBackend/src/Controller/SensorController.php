@@ -65,6 +65,7 @@ class SensorController extends AbstractController
         $sensor->setType($data['type']);
         $sensor->setLatitude($data['latitude']);
         $sensor->setLongitude($data['longitude']);
+        $sensor->setStatus('Active'); // Set default status
 
         $entityManager->persist($sensor);
         $entityManager->flush();
@@ -89,6 +90,30 @@ class SensorController extends AbstractController
     public function show(Sensor $sensor): JsonResponse
     {
         return $this->json($sensor, 200, [], ['groups' => 'sensor:read']);
+    }
+
+    #[Route('/{id}/toggle-status', name: 'app_sensor_toggle_status', methods: ['PATCH'])]
+    #[OA\Patch(
+        summary: 'Toggle sensor status',
+        description: 'Toggle the status of a sensor between Active and Inactive',
+        parameters: [
+            new OA\Parameter(name: 'id', in: 'path', required: true, description: 'Sensor ID', schema: new OA\Schema(type: 'integer'))
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'Sensor status updated successfully'),
+            new OA\Response(response: 404, description: 'Sensor not found')
+        ]
+    )]
+    public function toggleStatus(Sensor $sensor, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $currentStatus = $sensor->getStatus();
+        $newStatus = $currentStatus === 'Active' ? 'Inactive' : 'Active';
+        $sensor->setStatus($newStatus);
+
+        $entityManager->persist($sensor);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Sensor status updated successfully', 'newStatus' => $newStatus]);
     }
 
     #[Route('/{id}', name: 'app_sensor_delete', methods: ['DELETE'])]

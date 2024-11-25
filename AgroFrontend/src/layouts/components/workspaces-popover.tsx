@@ -55,7 +55,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
 
   return (
     <>
-      <ButtonBase
+      {/* <ButtonBase
         disableRipple
         onClick={handleOpenPopover}
         sx={{
@@ -86,7 +86,7 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         </Box>
 
         <Iconify width={16} icon="carbon:chevron-sort" sx={{ color: 'text.disabled' }} />
-      </ButtonBase>
+      </ButtonBase> */}
 
       <Popover open={!!openPopover} anchorEl={openPopover} onClose={handleClosePopover}>
         <MenuList

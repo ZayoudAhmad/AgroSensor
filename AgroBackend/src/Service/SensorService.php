@@ -12,7 +12,8 @@ class SensorService
             'id' => $sensor->getId(),
             'type' => $sensor->getType(),
             'latitude' => $sensor->getLatitude(),
-            'longitude' => $sensor->getLongitude()
+            'longitude' => $sensor->getLongitude(),
+            'status' => $sensor->getStatus(),
         ];
     }
 
