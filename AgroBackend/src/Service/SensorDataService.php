@@ -10,9 +10,8 @@ class SensorDataService
     {
         return [
             'id' => $sensorData->getId(),
-            'sensor_id' => $sensorData->getSensor()->getId(),
             'nitrogen' => $sensorData->getNitrogen(),
-            'phosphorus' => $sensorData->getPhosphorus(),
+            'phosphorous' => $sensorData->getPhosphorous(),
             'potassium' => $sensorData->getPotassium(),
             'temperature' => $sensorData->getTemperature(),
             'ph' => $sensorData->getPh(),

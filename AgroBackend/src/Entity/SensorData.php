@@ -18,7 +18,7 @@ class SensorData
     private ?float $nitrogen = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $phosphorus = null;
+    private ?float $phosphorous = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $potassium = null;
@@ -58,14 +58,14 @@ class SensorData
         return $this;
     }
 
-    public function getPhosphorus(): ?float
+    public function getPhosphorous(): ?float
     {
-        return $this->phosphorus;
+        return $this->phosphorous;
     }
 
-    public function setPhosphorus(?float $phosphorus): static
+    public function setPhosphorous(?float $phosphorous): static
     {
-        $this->phosphorus = $phosphorus;
+        $this->phosphorous = $phosphorous;
 
         return $this;
     }
