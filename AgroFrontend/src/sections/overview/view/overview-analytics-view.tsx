@@ -34,6 +34,9 @@ export function OverviewAnalyticsView() {
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [22, 8, 35, 50, 82, 84, 77, 12],
             }}
+            sx={{
+              height: '100%',
+            }}
           />
         </Grid>
 
@@ -47,6 +50,9 @@ export function OverviewAnalyticsView() {
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [56, 47, 40, 62, 73, 30, 23, 54],
+            }}
+            sx={{
+              height: '100%',
             }}
           />
         </Grid>
@@ -62,6 +68,9 @@ export function OverviewAnalyticsView() {
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [40, 70, 50, 28, 70, 75, 7, 64],
             }}
+            sx={{
+              height: '100%',
+            }}
           />
         </Grid>
 
@@ -75,6 +84,9 @@ export function OverviewAnalyticsView() {
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [56, 30, 23, 54, 47, 40, 62, 73],
+            }}
+            sx={{
+              height: '100%',
             }}
           />
         </Grid>
