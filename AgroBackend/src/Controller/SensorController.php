@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sensor;
 use App\Repository\SensorRepository;
+use App\Service\SensorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,6 +16,13 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: 'Sensor')]
 class SensorController extends AbstractController
 {
+
+    private $sensorService;
+
+    public function __construct(SensorService $sensorService) {
+        $this->sensorService = $sensorService;
+    }
+
     #[Route('', name: 'app_sensor_index', methods: ['GET'])]
     #[OA\Get(
         summary: 'Get all sensors',
@@ -26,11 +34,15 @@ class SensorController extends AbstractController
             )
         ]
     )]
-    public function index(SensorRepository $sensorRepository): JsonResponse
+    public function index(SensorRepository $sensorRepository, SensorService $sensorService): JsonResponse
     {
         $sensors = $sensorRepository->findAll();
-        return $this->json($sensors, 200, [], ['groups' => 'sensor:read']);
-    }
+    
+        // Map each sensor entity to JSON format using the SensorService
+        $sensorData = array_map(fn($sensor) => $sensorService->mapToJson($sensor), $sensors);
+    
+        return $this->json($sensorData, 200);
+    }    
 
     #[Route('/new', name: 'app_sensor_new', methods: ['POST'])]
     #[OA\Post(
